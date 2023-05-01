@@ -1,0 +1,31 @@
+.btn {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    
+    &__primary {
+        background-color: $color-primary-light;
+        color: $color-white;
+        font-size: 1.6rem;
+        border-radius: 2.5rem;
+        padding: 1rem 1.5rem;
+
+        &:hover {
+            background-color: $color-primary;
+            transition: .5s;
+        }
+    }
+
+    &__link {
+        background-color: transparent;
+        color: $color-primary;
+        font-size: 1.6rem;
+    }
+
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

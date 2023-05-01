@@ -1,0 +1,24 @@
+// Import utility styles
+@import './utils/mixins';
+@import './utils/utilities';
+
+// Import base styles
+@import './base/variables';
+@import './base/base';
+@import './base/typography';
+
+// Import component styles
+@import './components/button';
+@import './components/inputs';
+@import './components/breadcrumb';
+@import './components/practitionerListTable';
+
+// Import layout styles
+@import './layout/header';
+
+// Import page styles
+@import './pages/signin';
+@import './pages/practitionerList';
+@import './pages/practitionerProfile';
+// @import 'pages/about';
+// @import 'pages/contact';
