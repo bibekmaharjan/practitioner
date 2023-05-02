@@ -8,10 +8,12 @@
 @import './base/typography';
 
 // Import component styles
+@import './components/modal';
 @import './components/button';
 @import './components/inputs';
 @import './components/breadcrumb';
 @import './components/practitionerListTable';
+@import './components/practitionerActionForm';
 
 // Import layout styles
 @import './layout/header';
