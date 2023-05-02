@@ -4,8 +4,49 @@ import user1 from '../../assets/images/user1.jpg';
 import user2 from '../../assets/images/user2.jpg';
 import user3 from '../../assets/images/user3.jpg';
 import user4 from '../../assets/images/user4.jpg';
+import PractitionerListItem from './PractitionerListItem';
 
 const PractitionerListTable = () => {
+    const userData = [
+        {
+            name: 'Diane Cooper',
+            email: 'dianecooper@test.com',
+            contact: '+977-123456789',
+            dob: 'Jan 21, 1997',
+            startTime: 'Jan 21, 1997',
+            endTime: 'Jan 21, 1997',
+            userImg: user1
+        },
+        {
+            name: 'Diane Cooper',
+            email: 'dianecooper@test.com',
+            contact: '+977-123456789',
+            dob: 'Jan 21, 1997',
+            startTime: 'Jan 21, 1997',
+            endTime: 'Jan 21, 1997',
+            userImg: user2
+        },
+        {
+            name: 'Diane Cooper',
+            email: 'dianecooper@test.com',
+            contact: '+977-123456789',
+            dob: 'Jan 21, 1997',
+            startTime: 'Jan 21, 1997',
+            endTime: 'Jan 21, 1997',
+            userImg: user3
+        },
+        {
+            name: 'Diane Cooper',
+            email: 'dianecooper@test.com',
+            contact: '+977-123456789',
+            dob: 'Jan 21, 1997',
+            startTime: 'Jan 21, 1997',
+            endTime: 'Jan 21, 1997',
+            userImg: user4
+        }
+    ]
+
+    userData.map(data => console.log(data));
 
   return (
     <>
@@ -19,58 +60,10 @@ const PractitionerListTable = () => {
             <th className='text__label-muted'>Start time</th>
             <th className='text__label-muted'>End time</th>
         </tr>
-        <tr className='practitionerListTable__row'>
-            <td className='practitionerListTable__userInfo'>
-                <img src={user1} alt="" className="practitionerListTable__userInfo-img" />
-                <div className="practitionerListTable__userInfo-wrapper">
-                    <span className="text__title-med">Diane Cooper</span>
-                    <span className="text__sm--mute">dianecooper@test.com</span>
-                </div>
-            </td>
-            <td><span className="text__label">+007-12345678</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-        </tr>
-        <tr className='practitionerListTable__row'>
-            <td className='practitionerListTable__userInfo'>
-                <img src={user2} alt="" className="practitionerListTable__userInfo-img" />
-                <div className="practitionerListTable__userInfo-wrapper">
-                    <span className="text__title-med">Diane Cooper</span>
-                    <span className="text__sm--mute">dianecooper@test.com</span>
-                </div>
-            </td>
-            <td><span className="text__label">+007-12345678</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-        </tr>
-        <tr className='practitionerListTable__row'>
-            <td className='practitionerListTable__userInfo'>
-                <img src={user3} alt="" className="practitionerListTable__userInfo-img" />
-                <div className="practitionerListTable__userInfo-wrapper">
-                    <span className="text__title-med">Diane Cooper</span>
-                    <span className="text__sm--mute">dianecooper@test.com</span>
-                </div>
-            </td>
-            <td><span className="text__label">+007-12345678</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-        </tr>
-        <tr className='practitionerListTable__row'>
-            <td className='practitionerListTable__userInfo'>
-                <img src={user4} alt="" className="practitionerListTable__userInfo-img" />
-                <div className="practitionerListTable__userInfo-wrapper">
-                    <span className="text__title-med">Diane Cooper</span>
-                    <span className="text__sm--mute">dianecooper@test.com</span>
-                </div>
-            </td>
-            <td><span className="text__label">+007-12345678</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-        </tr>
+        {
+            userData.map((data) => <PractitionerListItem data= {data}/>)
+        }
+        {/* <PractitionerListItem /> */}
         </table>
     </div>
     </>

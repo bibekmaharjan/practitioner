@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'EuclidCircularB';
+    src: url('../../fonts/EuclidCircularB-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
 *,
 *::after,
 *::before {
@@ -10,7 +18,7 @@ html {
     box-sizing: border-box;
     scroll-behavior: smooth;
     background-color: $color-bg-gray;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'EuclidCircularB', 'Roboto', sans-serif;
 
     font-size: 62.5%;   // This defines what 1rem is
 
