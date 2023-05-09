@@ -1,11 +1,18 @@
 .practitionerList {
     grid-column: leftgutter-start / rightgutter-end;
     
+    
     &__menu {
         padding: 1.5rem;
         border-bottom: 1px solid $color-gray;
         display: flex;
         align-items: center;
+        justify-content: space-between;
+
+        &-wrapper {
+            display: flex;
+            align-items: center;
+        }
 
         &-item {
             display: flex;

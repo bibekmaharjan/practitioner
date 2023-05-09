@@ -2,10 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAuth } from 'src/hooks/useAuth';
-
-const Signin = () => {
-  const { setToken } = useAuth();
+const Signup = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -17,11 +14,9 @@ const Signin = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/auth/signin', { email, password });
-      const { accessToken } = response.data;
+      await axios.post('http://localhost:8080/auth/signup', { email, password });
 
-      setToken(accessToken);
-      navigate('/');
+      navigate('/signin');
     } catch (error) {
       console.error(error);
     }
@@ -49,14 +44,14 @@ const Signin = () => {
           onChange={(event) => setPassword(event.target.value)}
         />
         <div className="disp-flex mb-lg flex-space-between ">
-          <span className="text__label-sm">Remember my password</span>
-          <button className="btn btn__link" onClick={() => navigate('/signup')}>
-            Sign up?
+          <span className="text__label-sm">Have an account?</span>
+          <button className="btn btn__link" onClick={() => navigate('/signin')}>
+            Sign in?
           </button>
         </div>
         <div className="btn__wrapper">
           <button className="btn btn__primary" disabled={isDisabled} onClick={handleSubmit}>
-            LOGIN
+            SIGN UP
           </button>
         </div>
       </div>
@@ -64,4 +59,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;
