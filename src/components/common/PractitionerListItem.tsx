@@ -4,16 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { formatDate } from 'src/utils/datetime';
 import dotsIcon from '../../assets/images/dots-icon.png';
 import { DATETIME_FORMAT, DATE_FORMAT } from 'src/constants/date';
+import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
+import userImg from '../../assets/images/user1.jpg';
 
 interface PractitionerListItemProps {
   handleActionMenuClick: (e: any) => void;
-  editUserData: (e: any) => void;
+  editUserData: (id: number) => void;
   deleteUserData: (id: number) => void;
-  data: any;
+  data: PractitionerPayload;
 }
 
 const PractitionerListItem = (props: PractitionerListItemProps) => {
   const { data } = props;
+
   const navigate = useNavigate();
   const [isMenu, setIsMenu] = React.useState(false);
 
@@ -29,7 +32,9 @@ const PractitionerListItem = (props: PractitionerListItemProps) => {
 
   const handleEditClick = (e: any) => {
     setIsMenu(!isMenu);
-    props.editUserData(data.id);
+    if (data.id) {
+      props.editUserData(data.id);
+    }
     props.handleActionMenuClick(e);
   };
 
@@ -37,14 +42,16 @@ const PractitionerListItem = (props: PractitionerListItemProps) => {
     e.stopPropagation();
     e.preventDefault();
 
-    props.deleteUserData(data.id);
+    if (data.id) {
+      props.deleteUserData(data.id);
+    }
   };
 
   return (
     <>
       <tr className="practitionerListTable__row" onClick={onRowClick}>
         <td className="practitionerListTable__userInfo">
-          <img src={data.userImg} alt="" className="practitionerListTable__userInfo-img" />
+          <img src={userImg} alt="" className="practitionerListTable__userInfo-img" />
           <div className="practitionerListTable__userInfo-wrapper">
             <span className="text__title-med">{data.fullName}</span>
             <span className="text__sm--mute">{data.email}</span>
@@ -61,6 +68,15 @@ const PractitionerListItem = (props: PractitionerListItemProps) => {
         </td>
         <td>
           <span className="text__label">{formatDate(data.endTime, DATETIME_FORMAT)}</span>
+        </td>
+        <td>
+          <span className="text__label disp-flex flex-center">
+            {data.isICUSpecialist ? (
+              <div className="status status__true"></div>
+            ) : (
+              <div className="status status__false"></div>
+            )}
+          </span>
         </td>
         <td className="practitionerListTable__userInfo-dotsMenu--container">
           <img src={dotsIcon} onClick={handleMenuClick} className="practitionerListTable__userInfo-dotsIcon" alt="" />

@@ -2,9 +2,10 @@ import * as React from 'react';
 
 import Header from '../components/layout/Header';
 import PractitionerListTable from '../components/common/PractitionerListTable';
+import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
 
 const PractitionerList = () => {
-  const [userData, setUserData] = React.useState([]);
+  const [userData, setUserData] = React.useState<PractitionerPayload[]>([]);
   const [isActionMenu, setIsActionMenu] = React.useState(false);
 
   return (
@@ -16,20 +17,6 @@ const PractitionerList = () => {
             <div className="practitionerList__menu-item mr-md pr-md">
               <span className="text__title-lg--color mr-sm">{userData?.length}</span>
               <span className="text__label-muted">practitioners</span>
-            </div>
-            <div className="practitionerList__menu-item">
-              <label htmlFor="sort" className="text__label-muted mr-sm">
-                Sort by:
-              </label>
-              <div className="practitionerList__menu-item--select">
-                <select className="text__label-muted" name="sort" id="sort">
-                  <option value="Basic Info">Basic Info</option>
-                  <option value="Phone number">Phone number</option>
-                  <option value="DOB">DOB</option>
-                  <option value="Start time">Start time</option>
-                  <option value="End time">End time</option>
-                </select>
-              </div>
             </div>
           </div>
           <div className="btn__wrapper">

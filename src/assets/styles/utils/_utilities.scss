@@ -13,6 +13,22 @@
 .flex-justify-end {
     justify-content: flex-end;
 }
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-start {
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.no-wrap {
+    white-space: nowrap;
+
+}
+
 .mr-md {
     margin-right: 2rem;
 }

@@ -1,27 +1,27 @@
 import * as React from 'react';
 
-import FileUpload from './FileUpload';
 import closeIcon from '../../assets/images/close-icon.png';
+import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
 
 interface PractitionerActionFormProps {
-  addUserData: (e: any) => void;
-  setEditData: (e: any) => void;
-  handleUserEdit: (practitionerData: any, id: number) => void;
-  setIsVisible: (e: any) => void;
-  editData: any;
+  addUserData: (data: PractitionerPayload) => void;
+  setEditData: (data: PractitionerPayload | undefined) => void;
+  handleUserEdit: (practitionerData: PractitionerPayload, id: number | undefined) => void;
+  setIsVisible: (value: boolean) => void;
+  editData: PractitionerPayload | undefined;
 }
 
 const PractitionerActionForm = (props: PractitionerActionFormProps) => {
   const handleMenuClose = (e: any) => {
     e.stopPropagation();
     e.preventDefault();
-    props.setEditData(null);
+    props.setEditData(undefined);
     props.setIsVisible(false);
   };
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const initialData = props.editData
+  const initialData: PractitionerPayload = props.editData
     ? props.editData
     : {
         fullName: '',
@@ -32,33 +32,38 @@ const PractitionerActionForm = (props: PractitionerActionFormProps) => {
         gender: '',
         zipcode: '',
         dob: '',
-        workingDays: '',
+        workingDays: 0,
         status: '',
         endTime: '',
         startTime: '',
+        isICUSpecialist: false,
       };
 
   const [practitionerData, setPractitionerData] = React.useState(initialData);
 
-  const handleOnChange = (e: any) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value: boolean | string = e.target.value;
 
+    if (name === 'isICUSpecialist') {
+      value = e.target.checked;
+    }
     setPractitionerData({ ...practitionerData, [name]: value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (props.editData === practitionerData) {
       handleMenuClose(e);
-      props.setEditData(null);
+      props.setEditData(undefined);
 
       return;
     }
 
     setIsSubmitting(true);
+
     props.editData ? props.handleUserEdit(practitionerData, props.editData.id) : props.addUserData(practitionerData);
     setIsSubmitting(false);
-    props.setEditData(null);
+    props.setEditData(undefined);
     handleMenuClose(e);
   };
 
@@ -172,7 +177,20 @@ const PractitionerActionForm = (props: PractitionerActionFormProps) => {
           className="input__text mb-tn"
           placeholder="YOUR STATUS"
         />
-        <FileUpload />
+        <div className="disp-flex flex-start">
+          <input
+            name="isICUSpecialist"
+            id="isICUSpecialist"
+            onChange={handleOnChange}
+            // value={practitionerData.status}
+            type="checkbox"
+            className="mr-sm"
+          />
+          <label className="text__label no-wrap cursor-pointer" htmlFor="isICUSpecialist">
+            ICU Specialist
+          </label>
+        </div>
+        {/* <FileUpload /> */}
       </div>
       <div className="disp-flex flex-justify-end ">
         <button className="btn btn__primary" disabled={isSubmitting} onClick={handleSubmit}>

@@ -57,12 +57,8 @@ const FileUpload = () => {
     const formData = new FormData();
     formData.append('image', imageFile);
 
-    const response: any = axios.post('http://localhost:8080/upload-image/', formData);
+    axios.post('http://localhost:8080/upload-image/', formData);
 
-    console.log(response);
-    // const url = await response.text();
-
-    // console.log(url);
   };
 
   return (
