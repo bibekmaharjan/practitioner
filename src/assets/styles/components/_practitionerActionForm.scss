@@ -1,0 +1,36 @@
+.practitionerActionForm {
+    
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        img {
+            height: 1.5rem;
+            cursor: pointer;
+        }
+    }
+
+    &__content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 2rem;
+        
+    }
+}
+
+.status {
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 50%;
+
+    &__false {
+        background-color: #F2451C;
+    }
+
+    &__true {
+        background-color: #43BF57;
+    }
+    
+}

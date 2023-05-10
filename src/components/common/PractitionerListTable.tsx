@@ -1,81 +1,149 @@
 import * as React from 'react';
- 
-import user1 from '../../assets/images/user1.jpg';
-import user2 from '../../assets/images/user2.jpg';
-import user3 from '../../assets/images/user3.jpg';
-import user4 from '../../assets/images/user4.jpg';
+import { AuthContext } from 'src/context/AuthContext';
+import PractitionerActionForm from './PractitionerActionForm';
+import PractitionerListItem from './PractitionerListItem';
+import { ToastContainer, toast } from 'react-toastify';
+import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
+import Loading from './Loading';
+import { addPractitioner, deletePractitioner, editPractitioner, fetchPractitioners } from 'src/services/practitioner';
 
-const PractitionerListTable = () => {
+interface PractitionerListTableProps {
+  isActionMenu: boolean;
+  userData: PractitionerPayload[];
+  setIsActionMenu: (e: any) => void;
+  setUserData: (data: any) => void;
+}
+
+const PractitionerListTable = (props: PractitionerListTableProps) => {
+  const [editData, setEditData] = React.useState<PractitionerPayload | undefined>(undefined);
+  const [isFetching, setIsFetching] = React.useState<boolean>(false);
+  const token = React.useContext(AuthContext);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const fetchUserData = () => {
+    setIsFetching(true);
+    fetchPractitioners(config).then(
+      (d) => {
+        props.setUserData(d.data);
+        setIsFetching(false);
+      },
+      (e) => {
+        toast.error(e);
+      }
+    );
+  };
+
+  const deleteUserData = (id: number) => {
+    deletePractitioner(id, config).then(
+      () => {
+        fetchUserData();
+        toast.success('Practitioner deleted successfully');
+      },
+      (e) => {
+        console.log(e);
+        toast.error('Sorry action cannot be completed');
+      }
+    );
+  };
+
+  const addUserData = (practitionerData: PractitionerPayload) => {
+    addPractitioner(practitionerData, config).then(
+      () => {
+        fetchUserData();
+        toast.success('Practitioner added successfully');
+      },
+      (e) => {
+        console.log(e);
+        toast.error('Practitioner couldnot be added');
+      }
+    );
+  };
+
+  const editUserData = (id: number) => {
+    if (props.userData) {
+      const selectedEdit: PractitionerPayload | undefined = props.userData.find(
+        (el: PractitionerPayload) => el.id === id
+      );
+      setEditData(selectedEdit);
+    }
+  };
+
+  const handleUserEdit = (userData: PractitionerPayload, id: number | undefined) => {
+    if (id) {
+      editPractitioner(userData, id, config).then(
+        () => {
+          fetchUserData();
+          toast.success('Practitioner edited successfully');
+        },
+        (e) => {
+          console.log(e);
+          toast.error('Practitioner could not be edited');
+        }
+      );
+    }
+  };
+
+  const handleActionMenuClick = (e: any) => {
+    e.stopPropagation();
+    e.preventDefault();
+    props.setIsActionMenu(true);
+  };
+
+  React.useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const sortedData: PractitionerPayload[] = props.userData.sort((a, b) => {
+    if (a.isICUSpecialist === b.isICUSpecialist) {
+      return a.fullName.localeCompare(b.fullName); // if isICUSpecialist is the same, sort by name
+    } else {
+      return b.isICUSpecialist === true ? 1 : -1; // sort isICUSpecialist=true items first
+    }
+  });
 
   return (
     <>
-    <div className="practitionerListTable__wrapper">
-
-        <table className="practitionerListTable" cellSpacing="0">
-        <tr className='practitionerListTable__header'>
-            <th className='text__label-muted'>Basic Info</th>
-            <th className='text__label-muted'>Phone Number</th>
-            <th className='text__label-muted'>DOB</th>
-            <th className='text__label-muted'>Start time</th>
-            <th className='text__label-muted'>End time</th>
-        </tr>
-        <tr className='practitionerListTable__row'>
-            <td className='practitionerListTable__userInfo'>
-                <img src={user1} alt="" className="practitionerListTable__userInfo-img" />
-                <div className="practitionerListTable__userInfo-wrapper">
-                    <span className="text__title-med">Diane Cooper</span>
-                    <span className="text__sm--mute">dianecooper@test.com</span>
-                </div>
-            </td>
-            <td><span className="text__label">+007-12345678</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-        </tr>
-        <tr className='practitionerListTable__row'>
-            <td className='practitionerListTable__userInfo'>
-                <img src={user2} alt="" className="practitionerListTable__userInfo-img" />
-                <div className="practitionerListTable__userInfo-wrapper">
-                    <span className="text__title-med">Diane Cooper</span>
-                    <span className="text__sm--mute">dianecooper@test.com</span>
-                </div>
-            </td>
-            <td><span className="text__label">+007-12345678</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-        </tr>
-        <tr className='practitionerListTable__row'>
-            <td className='practitionerListTable__userInfo'>
-                <img src={user3} alt="" className="practitionerListTable__userInfo-img" />
-                <div className="practitionerListTable__userInfo-wrapper">
-                    <span className="text__title-med">Diane Cooper</span>
-                    <span className="text__sm--mute">dianecooper@test.com</span>
-                </div>
-            </td>
-            <td><span className="text__label">+007-12345678</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-        </tr>
-        <tr className='practitionerListTable__row'>
-            <td className='practitionerListTable__userInfo'>
-                <img src={user4} alt="" className="practitionerListTable__userInfo-img" />
-                <div className="practitionerListTable__userInfo-wrapper">
-                    <span className="text__title-med">Diane Cooper</span>
-                    <span className="text__sm--mute">dianecooper@test.com</span>
-                </div>
-            </td>
-            <td><span className="text__label">+007-12345678</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-            <td><span className="text__label">Jan 06, 1996</span></td>
-        </tr>
-        </table>
-    </div>
+      {isFetching ? (
+        <Loading />
+      ) : (
+        <div className="practitionerListTable__wrapper">
+          <table className="practitionerListTable" cellSpacing="0">
+            <tr className="practitionerListTable__header">
+              <th className="text__label-muted">Basic Info</th>
+              <th className="text__label-muted">Phone Number</th>
+              <th className="text__label-muted">DOB</th>
+              <th className="text__label-muted">Start time</th>
+              <th className="text__label-muted">End time</th>
+              <th className="text__label-muted">ICU Specialist</th>
+            </tr>
+            {sortedData.map((data: PractitionerPayload) => (
+              <PractitionerListItem
+                data={data}
+                key={data.id}
+                editUserData={editUserData}
+                deleteUserData={deleteUserData}
+                handleActionMenuClick={handleActionMenuClick}
+              />
+            ))}
+          </table>
+          {props.isActionMenu && (
+            <PractitionerActionForm
+              editData={editData}
+              setEditData={setEditData}
+              handleUserEdit={handleUserEdit}
+              addUserData={addUserData}
+              setIsVisible={props.setIsActionMenu}
+            />
+          )}
+        </div>
+      )}
+      <ToastContainer />
     </>
   );
 };
-
 
 export default PractitionerListTable;
