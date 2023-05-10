@@ -1,14 +1,15 @@
 import * as React from 'react';
 
+import FileUpload from './FileUpload';
 import closeIcon from '../../assets/images/close-icon.png';
 import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
 
 interface PractitionerActionFormProps {
+  setIsVisible: (value: boolean) => void;
+  editData: PractitionerPayload | undefined;
   addUserData: (data: PractitionerPayload) => void;
   setEditData: (data: PractitionerPayload | undefined) => void;
   handleUserEdit: (practitionerData: PractitionerPayload, id: number | undefined) => void;
-  setIsVisible: (value: boolean) => void;
-  editData: PractitionerPayload | undefined;
 }
 
 const PractitionerActionForm = (props: PractitionerActionFormProps) => {
@@ -24,18 +25,19 @@ const PractitionerActionForm = (props: PractitionerActionFormProps) => {
   const initialData: PractitionerPayload = props.editData
     ? props.editData
     : {
-        fullName: '',
-        email: '',
-        contact: '',
-        address: '',
-        city: '',
-        gender: '',
-        zipcode: '',
         dob: '',
-        workingDays: 0,
+        city: '',
+        email: '',
+        gender: '',
         status: '',
+        address: '',
+        contact: '',
+        zipcode: '',
         endTime: '',
+        fullName: '',
+        userImg: null,
         startTime: '',
+        workingDays: 0,
         isICUSpecialist: false,
       };
 
@@ -75,122 +77,121 @@ const PractitionerActionForm = (props: PractitionerActionFormProps) => {
       </div>
       <div className="practitionerActionForm__content">
         <input
+          required
+          type="text"
           name="fullName"
           onChange={handleOnChange}
-          value={practitionerData.fullName}
-          type="text"
           className="input__text mb-tn"
           placeholder="YOUR FULL NAME"
-          required
+          value={practitionerData.fullName}
         />
         <input
+          required
           name="email"
-          onChange={handleOnChange}
-          value={practitionerData.email}
           type="email"
-          className="input__text mb-tn"
           placeholder="YOUR MAIL"
-          required
+          onChange={handleOnChange}
+          className="input__text mb-tn"
+          value={practitionerData.email}
         />
         <input
+          required
+          type="number"
           name="contact"
           onChange={handleOnChange}
-          value={practitionerData.contact}
-          type="number"
           className="input__text mb-tn"
+          value={practitionerData.contact}
           placeholder="YOUR CONTACT NUMBER"
-          required
         />
         <input
+          type="text"
           name="address"
           onChange={handleOnChange}
-          value={practitionerData.address}
-          type="text"
-          className="input__text mb-tn"
           placeholder="YOUR ADDRESS"
+          className="input__text mb-tn"
+          value={practitionerData.address}
         />
         <input
           name="city"
+          type="text"
+          placeholder="YOUR CITY"
           onChange={handleOnChange}
           value={practitionerData.city}
-          type="text"
           className="input__text mb-tn"
-          placeholder="YOUR CITY"
         />
         <input
+          type="text"
           name="gender"
           onChange={handleOnChange}
-          value={practitionerData.gender}
-          type="text"
-          className="input__text mb-tn"
           placeholder="YOUR GENDER"
+          className="input__text mb-tn"
+          value={practitionerData.gender}
         />
         <input
+          type="number"
           name="zipcode"
           onChange={handleOnChange}
-          value={practitionerData.zipcode}
-          type="number"
-          className="input__text mb-tn"
           placeholder="YOUR ZIP CODE"
+          className="input__text mb-tn"
+          value={practitionerData.zipcode}
         />
         <input
+          required
           name="dob"
+          type="date"
           onChange={handleOnChange}
           value={practitionerData.dob}
-          type="date"
           className="input__text mb-tn"
           placeholder="YOUR DATE OF BIRTH"
-          required
         />
         <input
+          required
+          type="number"
           name="workingDays"
           onChange={handleOnChange}
-          value={practitionerData.workingDays}
-          type="number"
           className="input__text mb-tn"
           placeholder="YOUR WORKING DAYS"
-          required
+          value={practitionerData.workingDays}
         />
         <input
+          required
+          type="date"
           name="startTime"
-          onChange={handleOnChange}
-          value={practitionerData.startTime}
-          type="date"
-          className="input__text mb-tn"
           placeholder="START TIME"
-          required
-        />
-        <input
-          name="endTime"
           onChange={handleOnChange}
-          value={practitionerData.endTime}
-          type="date"
           className="input__text mb-tn"
-          placeholder="END TIME"
-          required
+          value={practitionerData.startTime}
         />
         <input
+          required
+          type="date"
+          name="endTime"
+          placeholder="END TIME"
+          onChange={handleOnChange}
+          className="input__text mb-tn"
+          value={practitionerData.endTime}
+        />
+        <input
+          type="text"
           name="status"
           onChange={handleOnChange}
-          value={practitionerData.status}
-          type="text"
-          className="input__text mb-tn"
           placeholder="YOUR STATUS"
+          className="input__text mb-tn"
+          value={practitionerData.status}
         />
         <div className="disp-flex flex-start">
           <input
-            name="isICUSpecialist"
-            id="isICUSpecialist"
-            onChange={handleOnChange}
-            // value={practitionerData.status}
             type="checkbox"
             className="mr-sm"
+            id="isICUSpecialist"
+            name="isICUSpecialist"
+            onChange={handleOnChange}
           />
           <label className="text__label no-wrap cursor-pointer" htmlFor="isICUSpecialist">
             ICU Specialist
           </label>
         </div>
-        {/* <FileUpload /> */}
+        <FileUpload setPractitionerData={setPractitionerData} practitionerData={practitionerData} />
       </div>
       <div className="disp-flex flex-justify-end ">
         <button className="btn btn__primary" disabled={isSubmitting} onClick={handleSubmit}>

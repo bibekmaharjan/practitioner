@@ -2,9 +2,9 @@ import axios from 'axios';
 import config from 'src/config';
 import { interpolate } from 'src/utils/interpolate';
 import RequestConfig from 'src/domain/misc/RequestConfig';
+import UserDetailResponse from 'src/domain/responses/UserDetailResponse';
 import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
 import PractitionerResponse from 'src/domain/responses/PractitionerResponse';
-import UserDetailResponse from 'src/domain/responses/UserDetailResponse';
 
 /**
  * Fetch details for practitioner.
@@ -44,7 +44,10 @@ export async function deletePractitioner(id: number, reqConfig: RequestConfig) {
  *
  */
 export async function addPractitioner(practitionerData: PractitionerPayload, reqConfig: RequestConfig) {
-  return await axios.post(config.endpoints.practitioners, practitionerData, reqConfig);
+  const formDataToSubmit = new FormData();
+  Object.entries(practitionerData).forEach(([key, value]) => formDataToSubmit.append(key, value));
+
+  return await axios.post(config.endpoints.practitioners, formDataToSubmit, reqConfig);
 }
 
 /**

@@ -1,8 +1,13 @@
-import axios from 'axios';
 import * as React from 'react';
 import AvatarEditor from 'react-avatar-editor';
+import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
 
-const FileUpload = () => {
+interface FileUploadProps {
+  practitionerData: PractitionerPayload;
+  setPractitionerData: React.Dispatch<React.SetStateAction<PractitionerPayload>>;
+}
+
+const FileUpload = (props: FileUploadProps) => {
   const [image, setImage] = React.useState('');
   const [editor, setEditor] = React.useState<any>(null);
   const [croppedImage, setCroppedImage] = React.useState('');
@@ -23,17 +28,6 @@ const FileUpload = () => {
     }
   };
 
-  const onCrop = () => {
-    if (!editor) {
-      setError('Editor not initialized');
-      return;
-    }
-    setShowCropper(false);
-    const canvas = editor.getImageScaledToCanvas().toDataURL();
-
-    setCroppedImage(canvas);
-  };
-
   const base64StringToFile = (base64String: string, fileName: string) => {
     const arr: any = base64String.split(',');
     const mime = arr[0].match(/:(.*?);/)[1];
@@ -46,19 +40,17 @@ const FileUpload = () => {
     return new File([u8arr], fileName, { type: mime });
   };
 
-  const handleUpload = async () => {
-    if (!croppedImage) {
+  const onCrop = () => {
+    if (!editor) {
+      setError('Editor not initialized');
       return;
     }
+    setShowCropper(false);
+    const canvas = editor.getImageScaledToCanvas().toDataURL();
 
-    const imageFile = base64StringToFile(croppedImage, fileName);
-    console.log(imageFile);
-
-    const formData = new FormData();
-    formData.append('image', imageFile);
-
-    axios.post('http://localhost:8080/upload-image/', formData);
-
+    setCroppedImage(canvas);
+    const file = base64StringToFile(canvas, fileName);
+    props.setPractitionerData({ ...props.practitionerData, userImg: file });
   };
 
   return (
@@ -89,7 +81,6 @@ const FileUpload = () => {
         {croppedImage && (
           <>
             <img src={croppedImage} alt="Cropped" />
-            <button onClick={handleUpload}>upload</button>
           </>
         )}
         {error && <p>{error}</p>}

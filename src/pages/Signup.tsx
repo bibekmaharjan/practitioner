@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import config from 'src/config';
+
 const Signup = () => {
   const navigate = useNavigate();
 
@@ -14,7 +16,7 @@ const Signup = () => {
     event.preventDefault();
 
     try {
-      await axios.post('http://localhost:8080/auth/signup', { email, password });
+      await axios.post(config.endpoints.signUp, { email, password });
 
       navigate('/signin');
     } catch (error) {

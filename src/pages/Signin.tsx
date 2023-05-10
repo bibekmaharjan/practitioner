@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import config from 'src/config';
+
 import { useAuth } from 'src/hooks/useAuth';
 
 const Signin = () => {
@@ -17,7 +19,7 @@ const Signin = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/auth/signin', { email, password });
+      const response = await axios.post(config.endpoints.signIn, { email, password });
       const { accessToken } = response.data;
 
       setToken(accessToken);

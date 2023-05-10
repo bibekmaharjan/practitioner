@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as React from 'react';
 import { AuthContext } from 'src/context/AuthContext';
 import PractitionerActionForm from './PractitionerActionForm';
@@ -124,9 +123,10 @@ const PractitionerListTable = (props: PractitionerListTableProps) => {
             {sortedData.map((data: PractitionerPayload) => (
               <PractitionerListItem
                 data={data}
-                handleActionMenuClick={handleActionMenuClick}
-                deleteUserData={deleteUserData}
+                key={data.id}
                 editUserData={editUserData}
+                deleteUserData={deleteUserData}
+                handleActionMenuClick={handleActionMenuClick}
               />
             ))}
           </table>
