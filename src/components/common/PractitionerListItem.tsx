@@ -5,7 +5,6 @@ import { formatDate } from 'src/utils/datetime';
 import dotsIcon from '../../assets/images/dots-icon.png';
 import { DATETIME_FORMAT, DATE_FORMAT } from 'src/constants/date';
 import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
-import userImg from '../../assets/images/user1.jpg';
 
 interface PractitionerListItemProps {
   handleActionMenuClick: (e: any) => void;
@@ -51,7 +50,7 @@ const PractitionerListItem = (props: PractitionerListItemProps) => {
     <>
       <tr className="practitionerListTable__row" onClick={onRowClick}>
         <td className="practitionerListTable__userInfo">
-          <img src={userImg} alt="" className="practitionerListTable__userInfo-img" />
+          <img src={data.userImg as string} alt="" className="practitionerListTable__userInfo-img" />
           <div className="practitionerListTable__userInfo-wrapper">
             <span className="text__title-med">{data.fullName}</span>
             <span className="text__sm--mute">{data.email}</span>

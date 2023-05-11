@@ -13,7 +13,7 @@ interface PractitionerPayload {
   endTime: string;
   startTime: string;
   isICUSpecialist: boolean;
-  userImg: File | null;
+  userImg: string | File | null;
 }
 
 export default PractitionerPayload;

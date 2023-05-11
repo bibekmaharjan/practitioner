@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { AuthContext } from 'src/context/AuthContext';
-import PractitionerActionForm from './PractitionerActionForm';
-import PractitionerListItem from './PractitionerListItem';
 import { ToastContainer, toast } from 'react-toastify';
-import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
+
 import Loading from './Loading';
+import { AuthContext } from 'src/context/AuthContext';
+import PractitionerListItem from './PractitionerListItem';
+import PractitionerActionForm from './PractitionerActionForm';
+import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
 import { addPractitioner, deletePractitioner, editPractitioner, fetchPractitioners } from 'src/services/practitioner';
 
 interface PractitionerListTableProps {
