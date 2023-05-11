@@ -12,12 +12,13 @@ const Signin = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isDisabled = !email || !password;
+  const isDisabled = !email || !password || isSubmitting;
 
   const handleSubmit = async (event: React.MouseEvent) => {
     event.preventDefault();
-
+    setIsSubmitting(true);
     try {
       const response = await axios.post(config.endpoints.signIn, { email, password });
       const { accessToken } = response.data;
@@ -25,6 +26,7 @@ const Signin = () => {
       setToken(accessToken);
       navigate('/');
     } catch (error) {
+      setIsSubmitting(false);
       console.error(error);
     }
   };

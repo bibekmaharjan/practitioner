@@ -1,5 +1,7 @@
 import * as React from 'react';
 import AvatarEditor from 'react-avatar-editor';
+
+import imgPlaceholder from '../../assets/images/userPlaceholder.jpg';
 import PractitionerPayload from 'src/domain/requests/PractitionerPayload';
 
 interface FileUploadProps {
@@ -56,8 +58,15 @@ const FileUpload = (props: FileUploadProps) => {
   return (
     <>
       <div>
-        <h1>Add Image</h1>
-        <input type="file" onChange={onFileChange} />
+        <div className="practitionerActionForm__img-wrapper">
+          <img
+            src={croppedImage ? croppedImage : imgPlaceholder}
+            alt="Cropped"
+            className="practitionerActionForm__img"
+          />
+
+          <input type="file" onChange={onFileChange} />
+        </div>
 
         {image && showCropper && (
           <div className="image__container">
@@ -77,11 +86,6 @@ const FileUpload = (props: FileUploadProps) => {
               Crop Image
             </button>
           </div>
-        )}
-        {croppedImage && (
-          <>
-            <img src={croppedImage} alt="Cropped" />
-          </>
         )}
         {error && <p>{error}</p>}
       </div>

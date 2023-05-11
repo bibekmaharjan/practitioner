@@ -55,7 +55,10 @@ export async function addPractitioner(practitionerData: PractitionerPayload, req
  *
  */
 export async function editPractitioner(practitionerData: PractitionerPayload, id: number, reqConfig: RequestConfig) {
+  const formDataToSubmit = new FormData();
+  Object.entries(practitionerData).forEach(([key, value]) => formDataToSubmit.append(key, value));
+
   const url = interpolate(config.endpoints.editPractitioners, { id });
 
-  return await axios.put(url, practitionerData, reqConfig);
+  return await axios.put(url, formDataToSubmit, reqConfig);
 }

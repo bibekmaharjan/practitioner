@@ -1,5 +1,30 @@
 .practitionerActionForm {
-    
+    &__container {
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba($color: #000000, $alpha: .6);
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        
+    }
+
+    &__img {
+        height: 20rem;
+        width: 20rem;
+        margin-bottom: 3rem;
+        
+        &-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &__modal {
+        width: 60%;
+    }
 
     &__header {
         display: flex;
@@ -15,8 +40,7 @@
     &__content {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-gap: 2rem;
-        
+        grid-gap: 2rem;        
     }
 }
 

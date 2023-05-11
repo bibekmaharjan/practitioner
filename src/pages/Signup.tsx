@@ -9,17 +9,20 @@ const Signup = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isDisabled = !email || !password;
+  const isDisabled = !email || !password || isSubmitting;
 
   const handleSubmit = async (event: React.MouseEvent) => {
     event.preventDefault();
+    setIsSubmitting(true);
 
     try {
       await axios.post(config.endpoints.signUp, { email, password });
 
       navigate('/signin');
     } catch (error) {
+      setIsSubmitting(false);
       console.error(error);
     }
   };

@@ -70,133 +70,138 @@ const PractitionerActionForm = (props: PractitionerActionFormProps) => {
   };
 
   return (
-    <div className="practitionerActionForm__modal modal">
-      <div className="practitionerActionForm__header mb-md">
-        <span className="text__title-med">{props.editData ? 'Edit Practitioner' : 'Add Practitioner'}</span>
-        <img src={closeIcon} alt="" onClick={handleMenuClose} />
-      </div>
-      <div className="practitionerActionForm__content">
-        <input
-          required
-          type="text"
-          name="fullName"
-          onChange={handleOnChange}
-          className="input__text mb-tn"
-          placeholder="YOUR FULL NAME"
-          value={practitionerData.fullName}
-        />
-        <input
-          required
-          name="email"
-          type="email"
-          placeholder="YOUR MAIL"
-          onChange={handleOnChange}
-          className="input__text mb-tn"
-          value={practitionerData.email}
-        />
-        <input
-          required
-          type="number"
-          name="contact"
-          onChange={handleOnChange}
-          className="input__text mb-tn"
-          value={practitionerData.contact}
-          placeholder="YOUR CONTACT NUMBER"
-        />
-        <input
-          type="text"
-          name="address"
-          onChange={handleOnChange}
-          placeholder="YOUR ADDRESS"
-          className="input__text mb-tn"
-          value={practitionerData.address}
-        />
-        <input
-          name="city"
-          type="text"
-          placeholder="YOUR CITY"
-          onChange={handleOnChange}
-          value={practitionerData.city}
-          className="input__text mb-tn"
-        />
-        <input
-          type="text"
-          name="gender"
-          onChange={handleOnChange}
-          placeholder="YOUR GENDER"
-          className="input__text mb-tn"
-          value={practitionerData.gender}
-        />
-        <input
-          type="number"
-          name="zipcode"
-          onChange={handleOnChange}
-          placeholder="YOUR ZIP CODE"
-          className="input__text mb-tn"
-          value={practitionerData.zipcode}
-        />
-        <input
-          required
-          name="dob"
-          type="date"
-          onChange={handleOnChange}
-          value={practitionerData.dob}
-          className="input__text mb-tn"
-          placeholder="YOUR DATE OF BIRTH"
-        />
-        <input
-          required
-          type="number"
-          name="workingDays"
-          onChange={handleOnChange}
-          className="input__text mb-tn"
-          placeholder="YOUR WORKING DAYS"
-          value={practitionerData.workingDays}
-        />
-        <input
-          required
-          type="date"
-          name="startTime"
-          placeholder="START TIME"
-          onChange={handleOnChange}
-          className="input__text mb-tn"
-          value={practitionerData.startTime}
-        />
-        <input
-          required
-          type="date"
-          name="endTime"
-          placeholder="END TIME"
-          onChange={handleOnChange}
-          className="input__text mb-tn"
-          value={practitionerData.endTime}
-        />
-        <input
-          type="text"
-          name="status"
-          onChange={handleOnChange}
-          placeholder="YOUR STATUS"
-          className="input__text mb-tn"
-          value={practitionerData.status}
-        />
-        <div className="disp-flex flex-start">
-          <input
-            type="checkbox"
-            className="mr-sm"
-            id="isICUSpecialist"
-            name="isICUSpecialist"
-            onChange={handleOnChange}
-          />
-          <label className="text__label no-wrap cursor-pointer" htmlFor="isICUSpecialist">
-            ICU Specialist
-          </label>
+    <div className="practitionerActionForm__container">
+      <div className="practitionerActionForm__modal modal">
+        <div className="practitionerActionForm__header mb-md">
+          <span className="text__title-med">{props.editData ? 'Edit Practitioner' : 'Add Practitioner'}</span>
+          <img src={closeIcon} alt="" onClick={handleMenuClose} />
         </div>
-        <FileUpload setPractitionerData={setPractitionerData} practitionerData={practitionerData} />
-      </div>
-      <div className="disp-flex flex-justify-end ">
-        <button className="btn btn__primary" disabled={isSubmitting} onClick={handleSubmit}>
-          {props.editData ? ' Edit Practitioner' : 'Add practitioner'}
-        </button>
+        <div className="practitionerActionForm__content">
+          <FileUpload setPractitionerData={setPractitionerData} practitionerData={practitionerData} />
+          <div className="disp-flex flex-col flex-space-between">
+            <input
+              required
+              type="text"
+              name="fullName"
+              onChange={handleOnChange}
+              className="input__text mb-tn"
+              placeholder="YOUR FULL NAME"
+              value={practitionerData.fullName}
+            />
+            <input
+              required
+              name="email"
+              type="email"
+              placeholder="YOUR MAIL"
+              onChange={handleOnChange}
+              className="input__text mb-tn"
+              value={practitionerData.email}
+            />
+            <input
+              required
+              type="number"
+              name="contact"
+              onChange={handleOnChange}
+              className="input__text mb-tn"
+              value={practitionerData.contact}
+              placeholder="YOUR CONTACT NUMBER"
+            />
+            <input
+              type="text"
+              name="address"
+              onChange={handleOnChange}
+              placeholder="YOUR ADDRESS"
+              className="input__text mb-tn"
+              value={practitionerData.address}
+            />
+            <input
+              name="city"
+              type="text"
+              placeholder="YOUR CITY"
+              onChange={handleOnChange}
+              value={practitionerData.city}
+              className="input__text mb-tn"
+            />
+          </div>
+
+          <input
+            type="text"
+            name="gender"
+            onChange={handleOnChange}
+            placeholder="YOUR GENDER"
+            className="input__text mb-tn"
+            value={practitionerData.gender}
+          />
+          <input
+            type="number"
+            name="zipcode"
+            onChange={handleOnChange}
+            placeholder="YOUR ZIP CODE"
+            className="input__text mb-tn"
+            value={practitionerData.zipcode}
+          />
+          <input
+            required
+            name="dob"
+            type="date"
+            onChange={handleOnChange}
+            value={practitionerData.dob}
+            className="input__text mb-tn"
+            placeholder="YOUR DATE OF BIRTH"
+          />
+          <input
+            required
+            type="number"
+            name="workingDays"
+            onChange={handleOnChange}
+            className="input__text mb-tn"
+            placeholder="YOUR WORKING DAYS"
+            value={practitionerData.workingDays}
+          />
+          <input
+            required
+            type="date"
+            name="startTime"
+            placeholder="START TIME"
+            onChange={handleOnChange}
+            className="input__text mb-tn"
+            value={practitionerData.startTime}
+          />
+          <input
+            required
+            type="date"
+            name="endTime"
+            placeholder="END TIME"
+            onChange={handleOnChange}
+            className="input__text mb-tn"
+            value={practitionerData.endTime}
+          />
+          <input
+            type="text"
+            name="status"
+            onChange={handleOnChange}
+            placeholder="YOUR STATUS"
+            className="input__text mb-tn"
+            value={practitionerData.status}
+          />
+          <div className="disp-flex flex-start">
+            <input
+              type="checkbox"
+              className="mr-sm"
+              id="isICUSpecialist"
+              name="isICUSpecialist"
+              onChange={handleOnChange}
+            />
+            <label className="text__label no-wrap cursor-pointer" htmlFor="isICUSpecialist">
+              ICU Specialist
+            </label>
+          </div>
+        </div>
+        <div className="disp-flex flex-justify-end ">
+          <button className="btn btn__primary" disabled={isSubmitting} onClick={handleSubmit}>
+            {props.editData ? ' Edit Practitioner' : 'Add practitioner'}
+          </button>
+        </div>
       </div>
     </div>
   );

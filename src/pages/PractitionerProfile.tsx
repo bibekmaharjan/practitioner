@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 
+import { formatDate } from 'src/utils/datetime';
 import Header from '../components/layout/Header';
-import userImg from '../assets/images/user1.jpg';
+import { DATE_FORMAT } from 'src/constants/date';
+import Loading from 'src/components/common/Loading';
 import { AuthContext } from 'src/context/AuthContext';
+import { ToastContainer, toast } from 'react-toastify';
 import Breadcrumb from '../components/common/Breadcrumb';
 import UserDetail from 'src/domain/responses/UserDetail';
-import Loading from 'src/components/common/Loading';
-import { ToastContainer, toast } from 'react-toastify';
 import { fetchPractitionerDetails } from 'src/services/practitioner';
-import { DATE_FORMAT } from 'src/constants/date';
-import { formatDate } from 'src/utils/datetime';
 
 const PractitionerProfile = () => {
   const { id } = useParams();
@@ -47,7 +46,7 @@ const PractitionerProfile = () => {
           <Breadcrumb name={userData?.fullName} />
           <div className="practitionerProfile__wrapper">
             <div className="practitionerProfile__userInfo">
-              <img src={userImg} alt="" className="practitionerProfile__userInfo-img" />
+              <img src={userData?.userImg} alt="" className="practitionerProfile__userInfo-img" />
               <span className="text__title-lg mb-sm">{userData?.fullName}</span>
               <span className="text__label-muted">{userData?.email}</span>
             </div>
