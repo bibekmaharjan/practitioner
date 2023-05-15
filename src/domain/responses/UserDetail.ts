@@ -11,6 +11,7 @@ interface UserDetail {
   gender: string;
   city: string;
   zipcode: string;
+  allergies?: string;
   status: string;
 }
 

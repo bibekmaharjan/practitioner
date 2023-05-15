@@ -1,17 +1,18 @@
 interface PractitionerPayload {
   id?: number;
-  fullName: string;
+  dob: string;
+  city: string;
   email: string;
+  gender: string;
+  status: string;
   contact: string;
   address: string;
-  city: string;
-  gender: string;
   zipcode: string;
-  dob: string;
-  workingDays: number;
-  status: string;
   endTime: string;
+  fullName: string;
   startTime: string;
+  workingDays: number;
+  allergies: string[];
   isICUSpecialist: boolean;
   userImg: string | File | null;
 }

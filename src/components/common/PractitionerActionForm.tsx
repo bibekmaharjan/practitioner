@@ -21,8 +21,10 @@ const PractitionerActionForm = (props: PractitionerActionFormProps) => {
   };
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isDisabled, setIsDisabled] = React.useState(false);
 
-  const initialData: PractitionerPayload = props.editData
+  const initialData: PractitionerPayload = React.useMemo (() => {
+    return props.editData
     ? props.editData
     : {
         dob: '',
@@ -37,11 +39,36 @@ const PractitionerActionForm = (props: PractitionerActionFormProps) => {
         fullName: '',
         userImg: null,
         startTime: '',
+        allergies: [],
         workingDays: 0,
         isICUSpecialist: false,
-      };
+      }}, [props.editData])
 
   const [practitionerData, setPractitionerData] = React.useState(initialData);
+  const [selectedAllergies, setSelectedAllergies] = React.useState<string[]>([]);
+
+  
+  React.useEffect(() => {
+    setPractitionerData({...practitionerData, allergies: selectedAllergies})
+  }, [selectedAllergies]);
+
+  const handleAllergiesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const itemName = event.target.name;
+    setSelectedAllergies((prevCheckedItems: string[]) =>
+      prevCheckedItems.includes(itemName)
+        ? prevCheckedItems.filter((itemtype: string) => itemtype !== itemName)
+        : [...prevCheckedItems, itemName]
+    );
+  };
+
+  React.useEffect(() => {
+    practitionerData === initialData ?
+      setIsDisabled(true)
+    :
+      setIsDisabled(false);
+    
+  },[practitionerData, initialData])
+
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -196,9 +223,65 @@ const PractitionerActionForm = (props: PractitionerActionFormProps) => {
               ICU Specialist
             </label>
           </div>
+          <div className="practitionerActionForm__allergies">
+          <label>
+            <input
+              type="checkbox"
+              name="pollen"
+              checked={selectedAllergies.includes('pollen')}
+              onChange={handleAllergiesChange}
+            />
+            Pollen
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="Mould"
+              checked={selectedAllergies.includes('Mould')}
+              onChange={handleAllergiesChange}
+            />
+            Mould
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="Food Allergies"
+              checked={selectedAllergies.includes('Food Allergies')}
+              onChange={handleAllergiesChange}
+            />
+            Food Allergies
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="Cockroaches"
+              checked={selectedAllergies.includes('Cockroaches')}
+              onChange={handleAllergiesChange}
+            />
+            Cockroaches
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="Insect stings"
+              checked={selectedAllergies.includes('Insect stings')}
+              onChange={handleAllergiesChange}
+            />
+            Insect stings
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="Dust mites"
+              checked={selectedAllergies.includes('Dust mites')}
+              onChange={handleAllergiesChange}
+            />
+            Dust mites
+          </label>
+          </div>
         </div>
         <div className="disp-flex flex-justify-end ">
-          <button className="btn btn__primary" disabled={isSubmitting} onClick={handleSubmit}>
+          <button className="btn btn__primary" disabled={isSubmitting || isDisabled} onClick={handleSubmit}>
             {props.editData ? ' Edit Practitioner' : 'Add practitioner'}
           </button>
         </div>

@@ -83,6 +83,10 @@ const PractitionerProfile = () => {
                 <span className="text__label-muted mb-sm">Registered Date</span>
                 <span className="text__label">Feb 24th 1997</span>
               </div>
+              <div className="practitionerProfile__userInfo-details--info">
+                <span className="text__label-muted mb-sm">Allergies</span>
+                <span className="text__label">{userData?.allergies ? userData?.allergies : '-' }</span>
+              </div>
             </div>
           </div>
         </section>
